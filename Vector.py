@@ -63,7 +63,7 @@ class Vector(object):
 
         except Exception as e:
             if str(e) == self.CANNOT_NORMALIZE_ZERO_VECTOR_MSG:
-                raise Exception('Cannot compute and angle with the zero vector')
+                raise Exception('Cannot compute an angle with the zero vector')
             else:
                 raise e
 
