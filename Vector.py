@@ -85,22 +85,25 @@ class Vector(object):
     def is_zero(self, tolerance=1e-10):
         return self.magnitude() < tolerance
 
+    def projection(self, v):
+        return v.normalize().times_scalar(self.dot(v.normalize()))
 
-v1 = Vector([-7.579, -7.88])
-v2 = Vector([-2.029, 9.97, 4.172])
-v3 = Vector([-2.328, -7.284, -1.214])
-v4 = Vector([2.118, 4.827])
 
-w1 = Vector([22.737, 23.64])
-w2 = Vector([-9.231, -6.639, -7.245])
-w3 = Vector([-1.821, 1.072, -2.94])
-w4 = Vector([0, 0])
+# ======================================================================================== #
+# ======================================================================================== #
 
-print v1.is_parallel(w1)
-print v1.is_orthogonal(w1)
-print v2.is_parallel(w2)
-print v2.is_orthogonal(w2)
-print v3.is_parallel(w3)
-print v3.is_orthogonal(w3)
-print v4.is_parallel(w4)
-print v4.is_orthogonal(w4)
+
+v1 = Vector([3.039, 1.879])
+b1 = Vector([0.825, 2.036])
+
+v2 = Vector([-9.88, -3.264, -8.159])
+b2 = Vector([-2.155, -9.353, -9.473])
+
+v3 = Vector([3.009, -6.172, 3.692, -2.51])
+b3 = Vector([6.404, -9.144, 2.759, 8.718])
+
+print v1.projection(b1)
+print v2.minus(v2.projection(b2))
+vb = v3.projection(b3)
+print vb
+print v3.minus(vb)
