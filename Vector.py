@@ -9,6 +9,8 @@ getcontext().prec = 30
 class Vector(object):
 
     CANNOT_NORMALIZE_ZERO_VECTOR_MSG = 'Cannot normalize the zero vector'
+    NO_UNIQUE_PARALLEL_COMPONENT_MSG = 'There is no unique parallel component'
+    NO_UNIQUE_ORTHOGONAL_COMPONENT_MSG = 'There is no unique orthogonal component'
 
     def __init__(self, coordinates):
         try:
@@ -85,8 +87,28 @@ class Vector(object):
     def is_zero(self, tolerance=1e-10):
         return self.magnitude() < tolerance
 
-    def projection(self, v):
-        return v.normalize().times_scalar(self.dot(v.normalize()))
+    def component_parallel_to(self, basis):
+        try:
+            u = basis.normalize()
+            weight = self.dot(u)
+            return u.times_scalar(weight)
+
+        except Exception as e:
+            if str(e) == self.CANNOT_NORMALIZE_ZERO_VECTOR_MSG:
+                raise Exception(self.CANNOT_NORMALIZE_ZERO_VECTOR_MSG)
+            else:
+                raise e
+
+    def component_orthogonal_to(self, basis):
+        try:
+            projection = self.component_parallel_to(basis)
+            return self.minus(projection)
+
+        except Exception as e:
+            if str(e) == self.CANNOT_NORMALIZE_ZERO_VECTOR_MSG:
+                raise Exception(self.CANNOT_NORMALIZE_ZERO_VECTOR_MSG)
+            else:
+                raise e
 
 
 # ======================================================================================== #
@@ -101,9 +123,9 @@ b2 = Vector([-2.155, -9.353, -9.473])
 
 v3 = Vector([3.009, -6.172, 3.692, -2.51])
 b3 = Vector([6.404, -9.144, 2.759, 8.718])
+vb = v3.component_parallel_to(b3)
 
-print v1.projection(b1)
-print v2.minus(v2.projection(b2))
-vb = v3.projection(b3)
+print v1.component_parallel_to(b1)
+print v2.component_orthogonal_to(b2)
 print vb
 print v3.minus(vb)
