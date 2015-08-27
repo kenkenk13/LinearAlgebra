@@ -38,7 +38,7 @@ class Vector(object):
         return Vector(new_coordinates)
 
     def dot(self, v):
-        return sum([x*y for x, y in zip(self.coordinates, v.coordinates)])
+        return round(sum([x*y for x, y in zip(self.coordinates, v.coordinates)]), 12)
 
     def times_scalar(self, v):
         new_coordinates = [Decimal(v)*x for x in self.coordinates]
@@ -96,7 +96,7 @@ w2 = Vector([-9.231, -6.639, -7.245])
 w3 = Vector([-1.821, 1.072, -2.94])
 w4 = Vector([0, 0])
 
-# print v1.is_parallel(w1)
+print v1.is_parallel(w1)
 print v1.is_orthogonal(w1)
 print v2.is_parallel(w2)
 print v2.is_orthogonal(w2)
