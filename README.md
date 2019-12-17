@@ -1,2 +1,2 @@
-# --LinearAlgebra--
-1. Linear Algebra Classes
+# LinearAlgebra
+1. Linear Algebra Classes Code
