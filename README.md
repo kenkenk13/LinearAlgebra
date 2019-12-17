@@ -1,2 +1,2 @@
 # LinearAlgebra
-Linear Algebra Classes
+1. Linear Algebra Classes
